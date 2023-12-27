@@ -8,9 +8,11 @@ import {
     NavDropdown
 } from 'react-bootstrap';
 import {Link} from "react-router-dom"
+import { category } from './../cotegory';
 
-
-const Header = () => {
+const Header = (props) => {
+  const {filtrData} = props;
+  
     return (
     <Navbar expand="lg" bg="dark" variant="dark">
       <Container>
@@ -32,8 +34,14 @@ const Header = () => {
                     Card
                 </Link>
             </Nav.Link>
-            <NavDropdown title="Category" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">List</NavDropdown.Item>
+            <NavDropdown title="Category" id="navbarScrollingDropdown">             
+                {
+                  category.map((elem, i) => {
+                    return (
+                      <NavDropdown.Item onClick={() => filtrData(elem)} key={i}>{elem}</NavDropdown.Item>
+                    )
+                  })
+                }
             </NavDropdown>
           </Nav>
           <Form className="d-flex">
