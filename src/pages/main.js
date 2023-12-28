@@ -9,29 +9,42 @@ import products from "../data/products.json"
 const Main = () =>{
     const [data, setData] = useState(products.products);
     const [cart, setCart] = useState([]);
+    const [title, setTitle] = useState("Главная");
+    const [value, setValue] = useState("")
+
     const filtrData = (text) =>{
-        console.log(text);
-        const newArr=products.products.filter((elem)=>elem.category===text)
-        setData(newArr)
+        
+        const newArr = products.products.filter((elem) => elem.category === text);
+        setData(newArr);
+        setTitle(text);
     }
 
     const addCart = (id) =>{
-        console.log(id);
-        const newArr = products.products.find((elem) => elem.id === id)
-        setCart([...cart, newArr])
+        
+        const newArr = products.products.find((elem) => elem.id === id);
+        setCart([...cart, newArr]);
     }
     const deleteCard = (id) =>{
-        const newArr = products.products.find((elem) => elem.id !== id)
-        setCart([...cart, newArr])
+        setCart([...cart.filter((elem, i) => i !== id)]);
+
     }
-    
+    const HomeClick = () =>{
+        setData(products.products);
+        setTitle("Главная");
+    }
+
+    const SearchClick = () =>{
+        const newArr = products.products.filter((elem) => elem.title.toLowerCase().includes(value.toLowerCase()));
+        setData(newArr)
+    }
+
     return(
         <div>
-            <Header filtrData={filtrData}/>
+            <Header filtrData={filtrData} cart={cart} HomeClick={HomeClick} SearchClick={SearchClick} value={value} setValue={setValue}/>
             <Container>
                 <Routes>
-                    <Route path="/" element={<Home data={data} addCart={addCart}/>}/>
-                    <Route path="/cart" element={<Cart cart={cart}  deleteCard={deleteCard}/>}/>
+                    <Route path="/" element={<Home data={data} addCart={addCart} title={title}/>}/>
+                    <Route path="/cart" element={<Cart cart={cart} deleteCard={deleteCard}/>}/>
                 </Routes>
             </Container>
         </div>

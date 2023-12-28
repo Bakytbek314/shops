@@ -10,14 +10,15 @@ import {
 import {Link} from "react-router-dom"
 import { category } from './../cotegory';
 
+
 const Header = (props) => {
-  const {filtrData} = props;
+  const {filtrData, cart, HomeClick, SearchClick, value, setValue} = props;
   
     return (
     <Navbar expand="lg" bg="dark" variant="dark">
       <Container>
         <Navbar.Brand>
-            <Link to="/">
+            <Link to="/" onClick={HomeClick}>
                 Home
             </Link>
             
@@ -31,7 +32,7 @@ const Header = (props) => {
           >
             <Nav.Link>
                 <Link to="/cart">
-                    Card
+                    Card {cart.length}
                 </Link>
             </Nav.Link>
             <NavDropdown title="Category" id="navbarScrollingDropdown">             
@@ -50,8 +51,10 @@ const Header = (props) => {
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
             />
-            <Button variant="outline-success">Search</Button>
+            <Button variant="outline-success" onClick={SearchClick}>Search</Button>
           </Form>
         </Navbar.Collapse>
       </Container>

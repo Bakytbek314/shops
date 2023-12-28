@@ -8,7 +8,7 @@ const Cart = (props) =>{
         <div className="d-flex flex-wrap gap-4 justify-content-around mt-4">
             {
                 cart.map((product, i) => {
-                    return <CartItem key={i} {...product} children="Delete"/>
+                    return <CartItem key={i} {...product} children="Delete" onClick={() => deleteCard(i)}/>
                 })
             }
         </div>
